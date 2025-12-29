@@ -1,3 +1,74 @@
+// Add this at the very beginning of script.js
+(function() {
+    // Basic protection against code copying
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+    
+    document.addEventListener('keydown', function(e) {
+        // Disable Ctrl+U, Ctrl+S, Ctrl+Shift+I, F12
+        if (
+            e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83) ||
+            e.keyCode === 123 || 
+            (e.ctrlKey && e.shiftKey && e.keyCode === 73)
+        ) {
+            e.preventDefault();
+        }
+    });
+})();
+
+// Wrap all your existing code in this IIFE
+(function() {
+    // Your existing DOMContentLoaded code...
+    document.addEventListener('DOMContentLoaded', function() {
+        // All your existing code here...
+        
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        // ... rest of your code
+    });
+    
+    // Obfuscate email
+    function obfuscateEmail() {
+        const emailElements = document.querySelectorAll('[data-email]');
+        emailElements.forEach(el => {
+            const email = el.getAttribute('data-email');
+            const parts = email.split('@');
+            if (parts.length === 2) {
+                const user = parts[0];
+                const domain = parts[1];
+                const obfuscated = user.replace(/./g, '*') + '@' + domain;
+                el.textContent = obfuscated;
+                el.addEventListener('mouseover', function() {
+                    this.textContent = email;
+                });
+                el.addEventListener('mouseout', function() {
+                    this.textContent = obfuscated;
+                });
+            }
+        });
+    }
+    
+    // Initialize obfuscation
+    obfuscateEmail();
+})();
+
+// Add performance monitoring
+window.addEventListener('load', function() {
+    // Log performance metrics (remove in production)
+    if (window.performance) {
+        const perfData = window.performance.timing;
+        const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+        console.log('Page load time: ' + pageLoadTime + 'ms');
+    }
+    
+    // Add loading animation removal
+    document.querySelectorAll('.loading').forEach(el => {
+        el.classList.remove('loading');
+    });
+});
+
+
 // Simple JavaScript without complex Intersection Observer issues
 document.addEventListener('DOMContentLoaded', function() {
     // Navbar scroll effect
