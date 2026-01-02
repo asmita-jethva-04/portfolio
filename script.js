@@ -108,6 +108,15 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+        const isClickInsideNav = navLinks.contains(event.target) || mobileMenuBtn.contains(event.target);
+        
+        if (!isClickInsideNav && navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+        }
+    });
 
     // 3D tilt effect for cards
     const tiltCards = document.querySelectorAll('.tilt-card');
